@@ -129,9 +129,47 @@ const observer = new IntersectionObserver(function(entries) {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
+
+            if (entry.target.classList.contains('stat') && !entry.target.dataset.countAnimated) {
+                animateStatNumber(entry.target);
+            }
         }
     });
 }, observerOptions);
+
+function animateStatNumber(statElement) {
+    const valueElement = statElement.querySelector('.stat-value');
+    if (!valueElement) {
+        statElement.dataset.countAnimated = 'true';
+        return;
+    }
+
+    const target = Number(valueElement.dataset.target);
+    if (Number.isNaN(target)) {
+        statElement.dataset.countAnimated = 'true';
+        return;
+    }
+
+    const prefix = valueElement.dataset.prefix || '';
+    const suffix = valueElement.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+
+    function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(target * eased);
+        valueElement.textContent = `${prefix}${current}${suffix}`;
+
+        if (progress < 1) {
+            requestAnimationFrame(tick);
+        } else {
+            statElement.dataset.countAnimated = 'true';
+        }
+    }
+
+    requestAnimationFrame(tick);
+}
 
 // Observe all card-like blocks across the page
 document.querySelectorAll('.skill-card, .cert-card, .project-card, .stat, .education-item, .timeline-item').forEach((element, index) => {
