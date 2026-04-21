@@ -141,7 +141,7 @@ function initAppreciationCarousel() {
 
     let currentIndex = 0;
     let autoPlayId = null;
-    const autoplayDelay = 5500;
+    const autoplayDelay = 8000;
 
     const dots = slides.map((_, index) => {
         const dot = document.createElement('button');
@@ -175,19 +175,24 @@ function initAppreciationCarousel() {
         updateView();
     }
 
+    function scheduleNextAutoplay() {
+        autoPlayId = window.setTimeout(() => {
+            goToSlide(currentIndex + 1);
+            scheduleNextAutoplay();
+        }, autoplayDelay);
+    }
+
     function startAutoplay() {
         if (autoPlayId !== null) {
             return;
         }
 
-        autoPlayId = window.setInterval(() => {
-            goToSlide(currentIndex + 1);
-        }, autoplayDelay);
+        scheduleNextAutoplay();
     }
 
     function stopAutoplay() {
-        if (autoPlayId) {
-            window.clearInterval(autoPlayId);
+        if (autoPlayId !== null) {
+            window.clearTimeout(autoPlayId);
             autoPlayId = null;
         }
     }
