@@ -569,18 +569,37 @@ body {
         text-align: center;
     }
 
-    .appreciation-grid {
+    .appreciation-carousel {
+        position: relative;
+        max-width: 1080px;
+        margin: 0 auto;
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1.8rem;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .appreciation-viewport {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .appreciation-track {
+        display: flex;
+        transition: transform 0.45s ease;
+        will-change: transform;
+    }
+
+    .appreciation-slide {
+        min-width: 100%;
     }
 
     .appreciation-card {
-        background: #f8f8f8;
-        border: 1px solid #e6e6e6;
-        border-radius: 12px;
-        min-height: 180px;
-        padding: 1.2rem;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        min-height: auto;
+        padding: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -588,15 +607,76 @@ body {
 
     .appreciation-card img {
         width: 100%;
-        max-height: 110px;
+        max-height: 420px;
         object-fit: contain;
         display: block;
+        border: 1px solid #dcdcdc;
+        border-radius: 8px;
+        cursor: zoom-in;
     }
 
-    @media (max-width: 992px) {
-        .appreciation-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+    .carousel-btn {
+        appearance: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        border: 1px solid #d9d9d9;
+        background: #FAFAFA;
+        color: #0c0c0c;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .carousel-btn:hover,
+    .carousel-btn:focus-visible {
+        background: #f3f3f3;
+        border-color: #c8c8c8;
+        transform: translateY(-1px);
+        outline: none;
+    }
+
+    .appreciation-carousel .carousel-btn,
+    .appreciation-carousel .carousel-btn:hover,
+    .appreciation-carousel .carousel-btn:focus-visible {
+        background-color: #FAFAFA;
+        border-color: #d9d9d9;
+        color: black;
+    }
+
+    .appreciation-carousel .carousel-btn span {
+        color: inherit;
+    }
+
+    .carousel-dots {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.9rem;
+    }
+
+    .carousel-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        border: none;
+        background: #d4d4d4;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .carousel-dot.is-active {
+        background: #3B82F6;
+        transform: scale(1.08);
+    }
+
+    .appreciation-carousel.is-single .carousel-btn,
+    .appreciation-carousel.is-single .carousel-dots {
+        display: none;
     }
 
     @media (max-width: 640px) {
@@ -604,12 +684,98 @@ body {
             font-size: 2.2rem;
         }
 
-        .appreciation-grid {
+        .appreciation-carousel {
             grid-template-columns: 1fr;
+            gap: 0.7rem;
         }
 
         .appreciation-card {
-            min-height: 150px;
+            min-height: auto;
+        }
+
+        .appreciation-card img {
+            max-height: 320px;
+        }
+
+        .carousel-btn {
+            display: none;
+        }
+    }
+
+    .appreciation-modal[hidden] {
+        display: none;
+    }
+
+    .appreciation-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(12, 12, 12, 0.82);
+        z-index: 220;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .appreciation-modal.is-open {
+        opacity: 1;
+    }
+
+    .appreciation-modal-content {
+        position: relative;
+        max-width: min(1100px, 95vw);
+        max-height: 90vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .appreciation-modal-image {
+        max-width: 100%;
+        max-height: 90vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border: 1px solid #dcdcdc;
+        border-radius: 8px;
+        background: #FAFAFA;
+    }
+
+    .appreciation-modal-close {
+        position: absolute;
+        top: -0.9rem;
+        right: -0.9rem;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        border: 1px solid #FAFAFA;
+        background: #0c0c0c;
+        color: #FAFAFA;
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .appreciation-modal-close:hover,
+    .appreciation-modal-close:focus-visible {
+        background: #1a1a1a;
+        outline: none;
+    }
+
+    @media (max-width: 640px) {
+        .appreciation-modal {
+            padding: 1rem;
+        }
+
+        .appreciation-modal-close {
+            top: 0.5rem;
+            right: 0.5rem;
         }
     }
 
@@ -629,7 +795,7 @@ body {
 
 .projects-section h2,
 .experience-section h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #0c0c0c;
     margin-bottom: 3rem;
     font-weight: 700;

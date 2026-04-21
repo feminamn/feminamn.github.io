@@ -118,6 +118,169 @@ document.querySelector('.contact-form')?.addEventListener('submit', function(e) 
     }
 });
 
+function initAppreciationCarousel() {
+    const carousel = document.querySelector('[data-appreciation-carousel]');
+    if (!carousel) {
+        return;
+    }
+
+    const track = carousel.querySelector('[data-carousel-track]');
+    const slides = Array.from(carousel.querySelectorAll('[data-carousel-slide]'));
+    const prevButton = carousel.querySelector('[data-carousel-prev]');
+    const nextButton = carousel.querySelector('[data-carousel-next]');
+    const dotsContainer = carousel.querySelector('[data-carousel-dots]');
+
+    if (!track || slides.length === 0) {
+        return;
+    }
+
+    if (slides.length === 1) {
+        carousel.classList.add('is-single');
+        return;
+    }
+
+    let currentIndex = 0;
+    let autoPlayId = null;
+
+    const dots = slides.map((_, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', `Go to appreciation ${index + 1}`);
+        dot.addEventListener('click', () => {
+            goToSlide(index);
+            resetAutoplay();
+        });
+        dotsContainer?.appendChild(dot);
+        return dot;
+    });
+
+    function updateView() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        slides.forEach((slide, index) => {
+            slide.classList.toggle('is-active', index === currentIndex);
+            slide.setAttribute('aria-hidden', index === currentIndex ? 'false' : 'true');
+        });
+
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('is-active', index === currentIndex);
+            dot.setAttribute('aria-current', index === currentIndex ? 'true' : 'false');
+        });
+    }
+
+    function goToSlide(index) {
+        currentIndex = (index + slides.length) % slides.length;
+        updateView();
+    }
+
+    function startAutoplay() {
+        autoPlayId = window.setInterval(() => {
+            goToSlide(currentIndex + 1);
+        }, 5500);
+    }
+
+    function stopAutoplay() {
+        if (autoPlayId) {
+            window.clearInterval(autoPlayId);
+            autoPlayId = null;
+        }
+    }
+
+    function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+    }
+
+    prevButton?.addEventListener('click', () => {
+        goToSlide(currentIndex - 1);
+        resetAutoplay();
+    });
+
+    nextButton?.addEventListener('click', () => {
+        goToSlide(currentIndex + 1);
+        resetAutoplay();
+    });
+
+    carousel.addEventListener('keydown', event => {
+        if (event.key === 'ArrowLeft') {
+            goToSlide(currentIndex - 1);
+            resetAutoplay();
+        }
+
+        if (event.key === 'ArrowRight') {
+            goToSlide(currentIndex + 1);
+            resetAutoplay();
+        }
+    });
+
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+
+    updateView();
+    startAutoplay();
+}
+
+initAppreciationCarousel();
+
+function initAppreciationPopup() {
+    const modal = document.querySelector('[data-appreciation-modal]');
+    const modalImage = document.querySelector('[data-appreciation-modal-image]');
+    const modalCloseButton = document.querySelector('[data-appreciation-modal-close]');
+    const appreciationImages = Array.from(document.querySelectorAll('.appreciation-card img'));
+
+    if (!modal || !modalImage || appreciationImages.length === 0) {
+        return;
+    }
+
+    function openModal(sourceImage) {
+        modalImage.src = sourceImage.currentSrc || sourceImage.src;
+        modalImage.alt = sourceImage.alt || 'Client appreciation image';
+        modal.hidden = false;
+        requestAnimationFrame(() => modal.classList.add('is-open'));
+        modal.dataset.previousOverflow = document.body.style.overflow || '';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('is-open');
+        modal.hidden = true;
+        modalImage.src = '';
+        modalImage.alt = '';
+        document.body.style.overflow = modal.dataset.previousOverflow || '';
+    }
+
+    appreciationImages.forEach(image => {
+        image.setAttribute('tabindex', '0');
+        image.setAttribute('role', 'button');
+        image.setAttribute('aria-label', `Open image preview: ${image.alt || 'Client appreciation'}`);
+
+        image.addEventListener('click', () => openModal(image));
+        image.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openModal(image);
+            }
+        });
+    });
+
+    modalCloseButton?.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', event => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    window.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !modal.hidden) {
+            closeModal();
+        }
+    });
+}
+
+initAppreciationPopup();
+
 // Add scroll animation for card-like elements
 const observerOptions = {
     threshold: 0.05,
