@@ -34,11 +34,12 @@ body {
     border-bottom: 2px solid #f0f0f0;
 }
 
-.navbar .container {
+.nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.6rem 20px;
+    gap: 1rem;
 }
 
 .nav-brand h1 {
@@ -61,6 +62,46 @@ body {
     align-items: center;
 }
 
+.nav-toggle {
+    display: none;
+    appearance: none;
+    border: 1px solid #ddd;
+    background: #FAFAFA;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    padding: 0.6rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-toggle span {
+    width: 18px;
+    height: 2px;
+    background: #0c0c0c;
+    border-radius: 999px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(12, 12, 12, 0.45);
+    backdrop-filter: blur(2px);
+    z-index: 90;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.nav-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .nav-menu a {
     text-decoration: none;
     color: #2c2c2c;
@@ -76,9 +117,42 @@ body {
 }
 
 @media (max-width: 768px) {
+    .nav-toggle {
+        display: inline-flex;
+        z-index: 111;
+    }
+
     .nav-menu {
-        gap: 1rem;
-        font-size: 0.9rem;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: min(82vw, 320px);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+        padding: 6rem 1.25rem 1.5rem;
+        background: #FAFAFA;
+        box-shadow: none;
+        transform: translateX(100%);
+        transition: transform 0.28s ease;
+        z-index: 105;
+    }
+
+    .nav-menu.is-open {
+        transform: translateX(0);
+        box-shadow: -18px 0 45px rgba(0, 0, 0, 0.16);
+    }
+
+    .nav-menu li {
+        width: 100%;
+    }
+
+    .nav-menu a {
+        width: 100%;
+        padding: 0.9rem 0.25rem;
+        font-size: 1rem;
+        border-bottom: 1px solid #ececec;
     }
 }
 
@@ -784,11 +858,6 @@ body {
 }
 
 @media (max-width: 480px) {
-    .nav-menu {
-        gap: 0.5rem;
-        font-size: 0.75rem;
-    }
-
     .hero-buttons {
         gap: 0.5rem;
     }
