@@ -141,6 +141,7 @@ function initAppreciationCarousel() {
 
     let currentIndex = 0;
     let autoPlayId = null;
+    const autoplayDelay = 5500;
 
     const dots = slides.map((_, index) => {
         const dot = document.createElement('button');
@@ -175,9 +176,13 @@ function initAppreciationCarousel() {
     }
 
     function startAutoplay() {
+        if (autoPlayId !== null) {
+            return;
+        }
+
         autoPlayId = window.setInterval(() => {
             goToSlide(currentIndex + 1);
-        }, 5500);
+        }, autoplayDelay);
     }
 
     function stopAutoplay() {
@@ -215,7 +220,7 @@ function initAppreciationCarousel() {
     });
 
     carousel.addEventListener('mouseenter', stopAutoplay);
-    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('mouseleave', resetAutoplay);
 
     updateView();
     startAutoplay();
