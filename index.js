@@ -172,7 +172,7 @@ function animateStatNumber(statElement) {
 }
 
 // Observe all card-like blocks across the page
-document.querySelectorAll('.skill-card, .cert-card, .project-card, .stat, .education-item, .timeline-item').forEach((element, index) => {
+document.querySelectorAll('.skill-card, .cert-card, .project-card, .appreciation-card, .stat, .education-item, .timeline-item').forEach((element, index) => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(20px)';
     element.style.transition = 'opacity 0.45s ease, transform 0.45s ease';

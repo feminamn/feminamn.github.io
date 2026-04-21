@@ -554,6 +554,64 @@ body {
     }
 }
 
+    /* ===== Client Appreciation Section ===== */
+    .client-appreciation {
+        padding: 80px 20px;
+        background: #FAFAFA;
+    }
+
+    .client-appreciation h2 {
+        font-size: 3rem;
+        margin-bottom: 2.5rem;
+        color: #0c0c0c;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .appreciation-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.8rem;
+    }
+
+    .appreciation-card {
+        background: #f8f8f8;
+        border: 1px solid #e6e6e6;
+        border-radius: 12px;
+        min-height: 180px;
+        padding: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .appreciation-card img {
+        width: 100%;
+        max-height: 110px;
+        object-fit: contain;
+        display: block;
+    }
+
+    @media (max-width: 992px) {
+        .appreciation-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 640px) {
+        .client-appreciation h2 {
+            font-size: 2.2rem;
+        }
+
+        .appreciation-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .appreciation-card {
+            min-height: 150px;
+        }
+    }
+
 /* ===== Experience + Projects Section ===== */
 .experience-projects {
     padding: 80px 20px;
