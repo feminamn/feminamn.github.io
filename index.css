@@ -500,30 +500,31 @@ body {
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.8rem;
+    gap: 2rem;
 }
 
 .skill-card {
     background: #f0f0f0;
-    border: 1px solid #e6e6e6;
-    padding: 1.8rem;
-    min-height: 240px;
+    border: 1px solid #dcdcdc;
+    border-radius: 0;
+    padding: 2.2rem;
+    min-height: 360px;
     display: flex;
     flex-direction: column;
 }
 
 .skill-card h3 {
     color: #0c0c0c;
-    margin-bottom: 0.9rem;
+    margin-bottom: 1rem;
     font-size: 1.05rem;
-    line-height: 1.2;
+    line-height: 1.3;
     font-weight: 700;
 }
 
 .skill-card p {
-    color: #555555;
-    font-size: 0.98rem;
-    line-height: 1.45;
+    color: #5f5f5f;
+    font-size: 0.95rem;
+    line-height: 1.65;
 }
 
 .skill-number {
@@ -533,6 +534,26 @@ body {
     font-weight: 500;
     margin-left: auto;
     margin-bottom: 0.8rem;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+}
+
+.skill-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.72rem;
+    border: 1px solid #a4a4a4;
+    border-radius: 999px;
+    background: #e5e5e5;
+    color: #555555;
+    font-size: 0.82rem;
+    line-height: 1;
 }
 
 @media (max-width: 992px) {
@@ -551,7 +572,13 @@ body {
     }
 
     .skill-card {
-        min-height: auto;
+        min-height: 320px;
+        padding: 1.8rem;
+    }
+
+    .skill-number {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
     }
 }
 
@@ -947,12 +974,12 @@ body {
 .project-card {
     background: #f0f0f0;
     color: #0c0c0c;
-    border: 1px solid #e6e6e6;
+    border: 1px solid #dcdcdc;
     border-radius: 0;
     overflow: visible;
     box-shadow: none;
-    padding: 2rem;
-    min-height: auto;
+    padding: 2.2rem;
+    min-height: 360px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -967,21 +994,21 @@ body {
 .project-info h3 {
     color: #0c0c0c;
     margin-bottom: 1rem;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.3;
 }
 
 .project-info p {
-    color: #555555;
+    color: #5f5f5f;
     margin-bottom: 1.2rem;
-    line-height: 1.6;
+    line-height: 1.65;
     font-size: 0.95rem;
 }
 
 .project-header {
     padding: 0 0 1.2rem 0;
-    border-bottom: 1px solid rgba(12, 12, 12, 0.1);
+    border-bottom: 1px solid #dddddd;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
@@ -992,15 +1019,15 @@ body {
 
 .project-agency {
     color: #f97316;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.6px;
 }
 
 .project-brands {
-    color: #666666;
-    font-size: 0.88rem;
+    color: #5f5f5f;
+    font-size: 0.95rem;
     font-weight: 500;
 }
 
@@ -1012,32 +1039,34 @@ body {
 }
 
 .project-tags span {
-    background: #3B82F6;
-    color: #FAFAFA;
+    background: #d8d8d8;
+    color: #6f6f6f;
     padding: 0.4rem 0.8rem;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
-    border: none;
+    border: 1px solid #d0d0d0;
 }
 
 .project-metrics {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
-    margin-top: 1rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
     justify-content: flex-start;
 }
 
 .project-metrics .metric {
-    background: #000000;
-    color: #FFFFFF;
-    padding: 0.3rem 0.6rem;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    border: 0.5px solid #000000;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.72rem;
+    border: 1px solid #a4a4a4;
+    border-radius: 999px;
+    background: #e5e5e5;
+    color: #555555;
+    font-size: 0.82rem;
+    line-height: 1;
     white-space: nowrap;
 }
 
@@ -1211,7 +1240,8 @@ body {
     }
 
     .project-card {
-        min-height: auto;
+        min-height: 320px;
+        padding: 1.8rem;
     }
 
     .about-stats {
