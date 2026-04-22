@@ -76,7 +76,6 @@ function updateActiveNav() {
 
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
         if (pageYOffset >= sectionTop - 200) {
             current = section.getAttribute('id');
         }
@@ -93,30 +92,6 @@ function updateActiveNav() {
 // Highlight active navigation item on scroll
 window.addEventListener('scroll', updateActiveNav);
 updateActiveNav();
-
-// Form submission handler
-document.querySelector('.contact-form')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form values
-    const name = this.querySelector('input[type="text"]').value;
-    const email = this.querySelector('input[type="email"]').value;
-    const message = this.querySelector('textarea').value;
-    
-    // Simple validation
-    if (name.trim() && email.trim() && message.trim()) {
-        // Create a simple email link (in production, this would be handled by a backend)
-        const mailtoLink = `mailto:femina.mn@Email.com?subject=Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0A%0AFrom: ${encodeURIComponent(email)}`;
-        
-        // Show success message
-        alert('Thank you for your message! I will get back to you soon.');
-        
-        // Reset form
-        this.reset();
-    } else {
-        alert('Please fill out all fields.');
-    }
-});
 
 function initAppreciationCarousel() {
     const carousel = document.querySelector('[data-appreciation-carousel]');
@@ -345,7 +320,7 @@ function animateStatNumber(statElement) {
 }
 
 // Observe all card-like blocks across the page
-document.querySelectorAll('.skill-card, .cert-card, .project-card, .appreciation-card, .stat, .education-item, .timeline-item').forEach((element, index) => {
+document.querySelectorAll('.skill-card, .cert-card, .project-card, .appreciation-card, .stat, .timeline-item').forEach((element, index) => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(20px)';
     element.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
@@ -353,25 +328,3 @@ document.querySelectorAll('.skill-card, .cert-card, .project-card, .appreciation
     observer.observe(element);
 });
 
-// Add typing effect to hero subtitle
-function typeEffect(element, text, speed = 100) {
-    let index = 0;
-    element.textContent = '';
-    
-    const type = () => {
-        if (index < text.length) {
-            element.textContent += text[index];
-            index++;
-            setTimeout(type, speed);
-        }
-    };
-    
-    type();
-}
-
-// Optional: Uncomment to enable typing effect on page load
-// window.addEventListener('load', () => {
-//     const heroSubtitle = document.querySelector('.hero-subtitle');
-//     const originalText = heroSubtitle.textContent;
-//     typeEffect(heroSubtitle, originalText, 50);
-// });

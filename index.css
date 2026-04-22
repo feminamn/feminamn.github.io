@@ -52,12 +52,6 @@ body {
     text-decoration: none;
 }
 
-.nav-brand .tagline {
-    font-size: 0.85rem;
-    color: #666666;
-    font-weight: 500;
-}
-
 .nav-menu {
     display: flex;
     list-style: none;
@@ -260,11 +254,6 @@ body {
     .profile-placeholder {
         width: 190px;
         height: 190px;
-    }
-
-    .profile-placeholder svg {
-        width: 150px;
-        height: 150px;
     }
 }
 
@@ -1031,23 +1020,6 @@ body {
     font-weight: 500;
 }
 
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: flex-start;
-}
-
-.project-tags span {
-    background: #d8d8d8;
-    color: #6f6f6f;
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border: 1px solid #d0d0d0;
-}
-
 .project-metrics {
     display: flex;
     flex-wrap: wrap;
@@ -1068,54 +1040,6 @@ body {
     font-size: 0.82rem;
     line-height: 1;
     white-space: nowrap;
-}
-
-/* ===== Education Section ===== */
-.education {
-    padding: 80px 20px;
-    background: #f8f8f8;
-}
-
-.education h2 {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    text-align: center;
-    color: #0c0c0c;
-    font-weight: 700;
-}
-
-.education-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.education-item {
-    background: #FAFAFA;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-top: 4px solid #0c0c0c;
-    transition: all 0.3s ease;
-}
-
-.education-item:hover {
-    border-top-color: #3B82F6;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15);
-}
-
-.education-item h3 {
-    color: #0c0c0c;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.education-item p {
-    color: #666666;
-    font-size: 0.95rem;
 }
 
 /* ===== Contact Section ===== */
@@ -1230,8 +1154,7 @@ body {
     }
 
     .skills-grid,
-    .projects-grid,
-    .education-items {
+    .projects-grid {
         grid-template-columns: 1fr;
     }
 
